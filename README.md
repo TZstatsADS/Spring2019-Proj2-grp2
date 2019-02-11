@@ -3,6 +3,8 @@
 ## To do (2/11 Monday)
 
 - [ ] Assign each of team member one past app and write pros/cons about the app.
+- [ ] Aim to write a project plan by 2/13.
+- [ ] Think of how we are going to improve the app.
 
 
 
