@@ -1,5 +1,14 @@
 # Project 2: Shiny App Development Version 2.0
 
+## To do (2/11 Monday)
+
+- [ ] Assign each of team member one past app and write pros/cons about the app.
+
+
+
+
+
+
 ### [Project Description](doc/project2_desc.md)
 
 ![screenshot](doc/screenshot2.png)
