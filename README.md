@@ -2,7 +2,7 @@
 
 ## To do (2/11 Monday)
 
-- [ ] Assign each of team member one past app and write pros/cons about the app.
+- [ ] Assign each of team member one past app and write pros/cons about the app. Please write at least 5 pros and 5 cons about the assigned project by Wednesday and post it in github either text file or markdown will be ok. 
 - [ ] [Fei Zheng](https://github.com/TZstatsADS/Spr2017-proj2-grp4)
 - [ ] [Tianchen](https://github.com/TZstatsADS/Spr2017-proj2-grp10)
 - [ ] [Yiwei Li](https://github.com/TZstatsADS/Spr2017-proj2-grp12)
