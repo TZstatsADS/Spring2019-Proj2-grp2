@@ -3,6 +3,13 @@
 ## To do (2/11 Monday)
 
 - [ ] Assign each of team member one past app and write pros/cons about the app.
+- [ ] [Fei Zhang](https://github.com/TZstatsADS/Spr2017-proj2-grp4)
+- [ ] [Tianchen](https://github.com/TZstatsADS/Spr2017-proj2-grp10)
+- [ ] [Yiwei Li](https://github.com/TZstatsADS/Spr2017-proj2-grp12)
+- [ ] [Tianyi Li](https://github.com/TZstatsADS/Spr2017-proj2-grp13)
+- [ ] [HyunBin Yoo](https://github.com/TZstatsADS/Spr2017-proj2-grp15)
+
+
 - [ ] Aim to write a project plan by 2/13.
 - [ ] Think of how we are going to improve the app.
 
