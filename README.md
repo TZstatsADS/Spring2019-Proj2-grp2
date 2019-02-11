@@ -3,7 +3,7 @@
 ## To do (2/11 Monday)
 
 - [ ] Assign each of team member one past app and write pros/cons about the app.
-- [ ] [Fei Zhang](https://github.com/TZstatsADS/Spr2017-proj2-grp4)
+- [ ] [Fei Zheng](https://github.com/TZstatsADS/Spr2017-proj2-grp4)
 - [ ] [Tianchen](https://github.com/TZstatsADS/Spr2017-proj2-grp10)
 - [ ] [Yiwei Li](https://github.com/TZstatsADS/Spr2017-proj2-grp12)
 - [ ] [Tianyi Li](https://github.com/TZstatsADS/Spr2017-proj2-grp13)
@@ -11,7 +11,14 @@
 
 
 - [ ] Aim to write a project plan by 2/13.
-- [ ] Think of how we are going to improve the app.
+- [ ] Week 1 is the studying & planning week. Study previous apps assigned to you, read project description, data description, browse data and brainstorm for ideas.
+- [ ] Think of how we are going to improve the app. As a team, study the assigned apps together (not necessarily face-to-face). During the discussion, discuss a number of key analyses/functionalities carefully and discuss possible improvements.
+
+> "Which analysis/visualization is particularly informative?"
+>
+> "What information is of value or interesting?"
+>
+> Good visualizations do not just look cool. They should be easy to understand and give the correct impression about data.
 
 
 
