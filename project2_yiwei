@@ -1,0 +1,11 @@
+Project summary: This shiny app helps choose the college by location, tuition, majors and we can visualize several key features of each school. It also analyzes the possible factors that can influence the investment in education by linear regression.
+pros: 
+1.The data is comparatively large including almost all the schools in the US.
+2.There are some icons on the top like tuitions(by term), Majors, Orginal state on the top of the map. It is comparatively straightforward for people to select different types.
+3.When we enlarge the map, and click on one 
+4.On the map, the size of the blue circle is correlated to the amount of the tuition.
+cons:
+1. I can't find the search button, which means that when I type into the filter condition, it's hard for me to apply it into use.
+2. Maybe because the map is so large, when I want to find specific university, I enlarge the map, the speed is so slow.
+3. There is only one color for the point on the map(blue), which means that it can't display the map correspoinding to the density of universities.
+4.I think it's better to create a list on the right side, which shows the list of universities of that area.
