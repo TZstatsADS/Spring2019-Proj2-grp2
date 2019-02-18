@@ -20,6 +20,12 @@
 >
 > Good visualizations do not just look cool. They should be easy to understand and give the correct impression about data.
 
+## To do (2/20 Wednesday)
+- Main target: Get data and do data cleaning
+- Fei Zheng:
+- Tianchen Wang:
+- Yiwei Li:
+- HyunBin Yoo:
 
 
 
