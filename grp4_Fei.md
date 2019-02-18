@@ -6,6 +6,7 @@ Project summary: Our project takes all available data on colleges and universiti
 
 
 ### Pros:
++ The functionality is complex and coding is advanced!
 + There is a fancy background and neat main page, which give audience a comfortable sense.
 + The floating classification map is an important highlight. And its dynamic property gives more information
 + Side-by-side comparison gives direct information about the school and we can compare two school that we are interested in very conveniently.
