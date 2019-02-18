@@ -27,6 +27,16 @@
 - Yiwei Li:
 - HyunBin Yoo:
 
+Data:
+
+1. school location
+2. school info
+	- major, major rank
+	- SAT, GPA
+	- tuition + expense
+	- safety, crime rate	
+	- work opportunity
+
 
 
 
