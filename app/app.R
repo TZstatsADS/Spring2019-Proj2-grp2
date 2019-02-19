@@ -48,9 +48,9 @@ ui <- fluidPage(
                         top = 60, bottom = "auto", width = 200, height = "auto", cursor = "move",
                         bsCollapse(id="choice", open = c("Major", "Tuition"), multiple = TRUE,
                                    bsCollapsePanel("Major", style = "primary",
-                                                   selectInput("major",NULL, choices = major)),
+                                                   selectInput("major",NULL, choices = index_major$major, selectize = TRUE, multiple = TRUE)),
                                    bsCollapsePanel("Tuition", style = "primary",
-                                                   sliderInput("tuition", NULL, min = 4000, max = 50000,value = c(0,50000))))
+                                                   sliderInput("tuition", NULL, min = 20000, max = 50000, value = c(20000,50000))))
           ),
           absolutePanel(NULL, class = "panel panel-default", fixed = TRUE,draggable = TRUE, left = "auto", right = 20,
                         top = 60, bottom = "auto", width = 200, height = "auto", cursor = "move",
@@ -87,13 +87,13 @@ server <- function(input, output){
   })
   
   # data filter
-  school.select <-  eventReactive(input$tuition, {
+  school.select <-  eventReactive(c(input$tuition, input$major), {
     school %>% 
       filter(TUITION >= input$tuition[1] 
              & TUITION <= input$tuition[2]
              & any(input$major %in% MAJOR[[1]][[1]])) %>% 
       select(NAME, LONGITUDE, LATITUDE, TUITION, RANK) %>%
-      arrange(desc(RANK))
+      arrange(RANK)
   })
   
   # information, adaptable by filtering conditions
@@ -109,9 +109,9 @@ server <- function(input, output){
   # change the filter conditions
   observe({
     leafletProxy("map", data = school.select()) %>%
-      clearShapes() %>%
-      addMarkers(lng = school.select()$LONGITUDE, lat = school.select()$LATITUDE, 
-                 popup = as.character(school.select()$NAME), label = as.character(school.select()$NAME))
+      clearMarkers() %>%
+      addCircleMarkers(lng = school.select()$LONGITUDE, lat = school.select()$LATITUDE, 
+                 popup = as.character(school.select()$NAME), radius = 2)
   })
 }
 
