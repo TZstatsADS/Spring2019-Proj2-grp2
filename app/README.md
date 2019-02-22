@@ -6,3 +6,5 @@ The App directory contains the app files for the Shiny App (i.e., ui.r and serve
 bugs:
 1. unable to delete some choices 
 2. zoom not enough
+3. tuition range
+4. URL clean

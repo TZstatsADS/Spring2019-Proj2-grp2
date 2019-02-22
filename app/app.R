@@ -13,19 +13,44 @@ library(dplyr)
 library(leaflet)
 
 setwd('/Users/tianchenwang/Git/Spring2019-Proj2-grp2')
-school <- read.csv("data/new_college_data.csv")
+school <- read_csv("data/new_college_data.csv")
 state <- sort(as.character(unique(school$STABBR)))
-index_major <- read.csv("data/index_major.csv")
+index_major <- read_csv("data/index_major.csv")
+
+############ safety 
+safe <- c('All', 'Fair', 'Good' , "Safe")
 
 # major for unviersity
 major.filter <- function(x){
   return(list(index_major$major[x[58:95] > 0]))
 }
+safemode <- function(x){
+  id <- which(colnames(school) == 'CRIMERATE')
+  if(x[id] < 2.1){
+    return('Safe')
+  } 
+  else if(x[id] < 6){
+    return('Good')
+  }
+  else{
+    return('Fair')
+  }
+}
+
 school$MAJOR <- apply(school, 1, major.filter)
+school$SAFE <- apply(school, 1, safemode)
+
+collegeIcon <- makeIcon(
+  iconUrl = 'app/collegeicon3.png',
+  iconWidth = 38, iconHeight = 40)
+
+#### define pop up func ######
+popUp <- function(){
+  
+}
 
 
-
-# Define UI for application that draws a histogram
+# Define UI #################################################
 ui <- fluidPage(
   navbarPage(
     "Smart Choice!",
@@ -50,15 +75,17 @@ ui <- fluidPage(
         leafletOutput("map", width = "100%", height = "100%"),
         absolutePanel(NULL, class = "panel panel-default", fixed = TRUE,draggable = TRUE, left = 20, right = "auto",
                       top = 60, bottom = "auto", width = 200, height = "auto", cursor = "move",
-                      bsCollapse(id="choice", open = c("Major", "Tuition", "State"), multiple = TRUE,
+                      bsCollapse(id="choice", open = c("Major", "Tuition", "State", "Safety"), multiple = TRUE,
                                  bsCollapsePanel("Major", style = "primary",
                                                  selectInput("major",NULL, choices = c("Multiple Choices" = "", as.character(index_major$major)),
                                                              selectize = TRUE, multiple = TRUE)),
                                  bsCollapsePanel("Tuition", style = "primary",
-                                                 sliderInput("tuition", NULL, min = 20000, max = 50000, value = c(20000,50000))),
+                                                 sliderInput("tuition", NULL, min = 20000, max = 80000, value = c(20000,80000))),
                                  bsCollapsePanel("State",style = "primary",
                                                  selectInput("state", NULL, choices = c("Multiple Choices" = "", as.character(state)),
-                                                             selectize = TRUE, multiple = TRUE)))
+                                                             selectize = TRUE, multiple = TRUE)),
+                                 bsCollapsePanel("Safety", style = 'info',
+                                                 selectInput('safety', NULL, safe, selectize=FALSE)))
         ),
         absolutePanel(NULL, class = "panel panel-default", fixed = TRUE,draggable = TRUE, left = "auto", right = 20,
                       top = 60, bottom = "auto", width = 200, height = "auto", cursor = "move",
@@ -98,14 +125,22 @@ server <- function(input, output){
   })
   
   # data filter
-  school.select <-  eventReactive(c(input$tuition, input$major, input$state), {
-    school %>% 
+  school.select <-  eventReactive(c(input$tuition, input$major, input$state, input$safety), {
+    df <- school %>% 
       filter(TUITION >= input$tuition[1] 
              & TUITION <= input$tuition[2]
              & any(input$major %in% MAJOR[[1]][[1]])
              & STABBR %in% input$state) %>% 
-      select(NAME, LONGITUDE, LATITUDE, TUITION, RANK) %>%
+      # select(NAME, LONGITUDE, LATITUDE, TUITION, RANK, SAFE) %>%
       arrange(RANK)
+
+    
+    if(input$safety != 'All'){
+      df <- df %>%
+        filter(SAFE == input$safety)
+    }
+    df
+    
   },
   ignoreNULL = TRUE)
   
@@ -116,12 +151,31 @@ server <- function(input, output){
   })
   
   # change the filter conditions
-  observeEvent(c(input$tuition, input$major, input$state), {
+  observeEvent(c(input$tuition, input$major, input$state, input$safety), {
     
     leafletProxy("map") %>%
       clearMarkers() %>%
-      addCircleMarkers(lng = school.select()$LONGITUDE, lat = school.select()$LATITUDE, 
-                       popup = as.character(school.select()$NAME), radius = 4)
+      # addCircleMarkers(lng = school.select()$LONGITUDE, lat = school.select()$LATITUDE,
+                       # popup = as.character(school.select()$NAME), radius = 4)
+      addMarkers(lng = school.select()$LONGITUDE,
+                 lat = school.select()$LATITUDE,
+                 icon = collegeIcon,
+                 popup = paste0(
+                               "<b><a href='http://",
+                               as.character(school.select()$INSTURL),
+                               "'>",
+                               as.character(school.select()$NAME),
+                               "</a></b>",
+                               "<br/>",
+                               "Rank: ",
+                               as.character(school.select()$RANK),
+                               "<br/>",
+                               paste(
+                                as.character(school.select()$CITY), 
+                                as.character(school.select()$STABBR), 
+                                as.character(school.select()$ZIP)
+                                )
+                 ))
     
   })
   
@@ -129,7 +183,7 @@ server <- function(input, output){
     loc <- school.select() %>% filter(NAME == input$uni) %>% select(LONGITUDE, LATITUDE)
     leafletProxy("map") %>%
       
-      flyTo(as.numeric(loc[1]), as.numeric(loc[2]), zoom = 8)
+      flyTo(as.numeric(loc[1]), as.numeric(loc[2]), zoom = 12)
   })
   
   #observe({
