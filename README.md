@@ -6,7 +6,6 @@
 - [ ] [Fei Zheng](https://github.com/TZstatsADS/Spr2017-proj2-grp4)
 - [ ] [Tianchen](https://github.com/TZstatsADS/Spr2017-proj2-grp10)
 - [ ] [Yiwei Li](https://github.com/TZstatsADS/Spr2017-proj2-grp12)
-- [ ] [Tianyi Li](https://github.com/TZstatsADS/Spr2017-proj2-grp13)
 - [ ] [HyunBin Yoo](https://github.com/TZstatsADS/Spr2017-proj2-grp15)
 
 
