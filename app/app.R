@@ -16,49 +16,34 @@ library(fmsb)
 library(shinyjs)
 
 setwd('/Users/tianchenwang/Git/Spring2019-Proj2-grp2')
-school <- read_csv("data/new_college_data.csv")
+school <- read_csv("data/final_college_data.csv")
 state <- sort(as.character(unique(school$STABBR)))
 index_major <- read_csv("data/index_major.csv")
 
-############ safety 
-safe <- c('All', 'Fair', 'Good' , "Safe")
 
-# major for unviersity
+# preporcessinbg ...
 major.filter <- function(x){
   return(list(index_major$major[x[58:95] > 0]))
 }
-safemode <- function(x){
-  id <- which(colnames(school) == 'CRIMERATE')
-  if(x[id] < 2.1){
-    return('Safe')
-  } 
-  else if(x[id] < 6){
-    return('Good')
-  }
-  else{
-    return('Fair')
-  }
-}
 
 school$MAJOR <- apply(school, 1, major.filter)
-school$SAFE <- apply(school, 1, safemode)
+
+
+
+
+
+
 
 collegeIcon <- makeIcon(
   iconUrl = 'app/collegeicon3.png',
   iconWidth = 38, iconHeight = 40)
 
-#### define pop up func ######
-popUp <- function(){
-  
-}
+safe <- c("All", "Safe", "Good", "Fair")
+################################# Define UI ##################################################
 
-
-# Define UI #################################################
 ui <- fluidPage(
   navbarPage(
     strong("Smart Choice!"),
-    
-    
     
     # the map
     tabPanel(
@@ -148,7 +133,7 @@ ui <- fluidPage(
   )
 )
 
-# Define server (multiple makers code...)
+################################# Define Server ##################################################
 server <- function(input, output){
   
   # basic map
