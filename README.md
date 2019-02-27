@@ -9,10 +9,13 @@ Term: Spring 2019
 
 + Team #2
 + **Projec title**: Smart College Choice
-	+ Yiwei Li
+	+ Yiwei Li (Presenter)
 	+ Tianchen Wang
 	+ Fei Zheng 
 	+ HyunBin Yoo
+
+
+Shiny App link: [https://feizheng.shinyapps.io/Shiny_App_Education/](https://feizheng.shinyapps.io/Shiny_App_Education/)
 
 + **Project summary**: Our project takes all available data on colleges and universities in New York State and attempts to create a user-friendly shiny app that allows users to **explore** and **compare** schools based on user-specific filtering criteria. The purpose of our design is to provide users with a bird's eye view of New York colleges and universities; allow them to filter, search, and group schools by their preferred criteria; and further compare those schools on a more micro level. 
 + **Distinguishing features**: 
