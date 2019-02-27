@@ -20,7 +20,8 @@ library(readr)
 library(plotly)
 
 # setwd("/Users/james/Desktop/Lectures/GR5243_Applied_Data_Science/Spring2019-Proj2-grp2/app")
-school <- read_csv("final_college_data.csv")
+setwd("~/Git/Spring2019-Proj2-grp2")
+school <- read_csv("data/final_college_data.csv")
 
 
 from_fac_to_number <- function(x){
@@ -32,7 +33,7 @@ for (i in 36:60){
 }
 
 state <- sort(unique(school$STABBR))
-index_major <- read_csv("index_major.csv")
+index_major <- read_csv("data/index_major.csv")
 # index_major <- read_csv("index_major.csv")
 
 
@@ -140,7 +141,28 @@ ui <- fluidPage(
 
       # about us
       tabPanel(
-        "About us"
+        "About us",
+        
+        div(
+          h1("What's Our Goal?"),
+          p("The project aims to help student better finding their dream colleges and universities.",
+            style="font-size:20px"),
+          h1("Who Are We?"),
+          p("We are a group of graduates students at Columbia University.",
+            style="font-size:20px"),
+          p("Fei Zheng, fz2277@columbia.edu",
+            style="font-size:20px"),
+          p("HyunBin Yoo, hy2506@columbia.edu",
+            style='font-size:20px'),
+          p("Tianchen Wang, tw2665@columbia.edu",
+            style='font-size:20px'),
+          p("Yiwei Li, yl3950@columbia.edu",
+            style='font-size:20px'),
+          h2("Special Thanks"),
+          p("We learned a lot of inspiration and ideas from students who enrolled in the Applied Data Science(GR5243).",
+            style="font-size:18px")
+        )
+        
         
       )
     ) # end navbarPage
