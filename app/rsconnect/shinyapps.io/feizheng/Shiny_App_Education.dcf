@@ -1,0 +1,13 @@
+name: Shiny_App_Education
+title: Shiny_App_Education
+username:
+account: feizheng
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 739951
+bundleId: 1902621
+url: https://feizheng.shinyapps.io/Shiny_App_Education/
+when: 1551244172.45361
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: college_data.csv|gomap.js|README.md|Ex/server.R|Ex/ui.R|www/.DS_Store
