@@ -21,7 +21,7 @@ The **learning goals** for this project is:
 Term: Spring 2019
 
 + Team #2
-+ **Projec title**: + Team members
++ **Projec title**: Safety at College
 	+ Yiwei Li
 	+ Tianchen Wang
 	+ Fei Zheng 
