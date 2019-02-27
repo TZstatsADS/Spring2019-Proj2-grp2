@@ -72,8 +72,10 @@ ui <- fluidPage(
               top = 60, bottom = "auto", width = 200, height = "auto", cursor = "move",
               uiOutput("uni"),
               verbatimTextOutput("uni_num")
+              # conditionalPanel(width = 400,
+              #                  condition = "input$uni != ''",
+              #                  uiOutput("info1"))
           ),
-          
           useShinyjs(),
           hidden(
             div(id = "conditionalPanel",
@@ -389,8 +391,8 @@ server <- function(input, output){
         filter(NAME == input$uni) %>%
         as.data.frame()
 
-      head <- paste("<h2 style='font-family:Palatino' align=center>",
-                    as.character(college$NAME), "</h2>")
+      head <- h2(as.character(college$NAME),
+                 align = "center")
       # college
       rank <- paste("<p style='font-size:15px'>",
                     as.character(college$RANK), "</p>")

@@ -22,7 +22,7 @@ h1, h2, h3, h4 { font-weight: 400; }
 #controls {
   /* Appearance */
   background-color: white;
-  padding: 0 20px 20px 20px;
+  padding: 0 0 0 0;
   cursor: move;
   /* Fade out while not hovering */
   opacity: 0.65;
@@ -41,6 +41,32 @@ h1, h2, h3, h4 { font-weight: 400; }
   bottom: 10px;
   left: 10px;
   font-size: 12px;
+}
+
+#customers {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td {
+  color: #f2f2f2;
+}
+#customers th {
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+#customers tr:nth-child(even){background-color: #303030;}
+
+#customers tr:hover {background-color: #303030;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #ff6699;
+  color: white;
 }
 
 /* If not using map tiles, show a white background */
