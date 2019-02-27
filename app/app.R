@@ -85,7 +85,7 @@ ui <- fluidPage(
             div(id = "conditionalPanel",
                 #fluidRow(
                 absolutePanel(id = "information", class = "panel panel-default", style="margin-top: 20px; margin-bottom: 0px;", fixed = TRUE,
-                              draggable = FALSE, top =300, right=0, bottom = 0,
+                              draggable = TRUE, top =230, right=0, bottom = 0,
                               width = 400, height = "auto", cursor = "move",
                               # h2("Detailed Information"),
                               uiOutput("info1"),
@@ -334,8 +334,8 @@ server <- function(input, output){
     
     output$info1 <- renderUI({
         
-        head <- paste("<h2 style='font-family:Palatino' align=center>",
-                      as.character(one_school$NAME), "</h2>")
+        head <- paste("<h3 style='font-family:Palatino' align=center>",
+                      as.character(one_school$NAME), "</h3>")
         # college
         rank <- paste("<p style='font-size:15px'>",
                       as.character(one_school$RANK), "</p>")
