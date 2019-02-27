@@ -24,10 +24,11 @@ Term: Spring 2019
 + **Projec title**: + Team members
 	+ Yiwei Li
 	+ Tianchen Wang
-	+ team member 3
+	+ Fei Zheng 
 	+ HyunBin Yoo
 
 + **Project summary**: Our project takes all available data on colleges and universities in New York State and attempts to create a useful shiny app that allows users to explore and compare schools based on user-specific filtering criteria. The purpose of our design is to provide users with a bird's eye view of New York colleges and universities; allow them to filter, search, and group schools by their preferred criteria; and further compare two schools on a more micro level. A distinguishing feature of our app is the map search function. Before we select any filter on the map, we can see all the schools on the map.  
+We set several most important factors which means that the factors parents care about most when select schools for their children as criteria for filtration: Major, Tuition, State, Safety and score requirement (including ACT, SAT and GPA). 
 
 **Contribution statement**: All team members contributed equally in all stages of this project. All team members approve our work presented in this GitHub repository including this contributions statement. 
 
