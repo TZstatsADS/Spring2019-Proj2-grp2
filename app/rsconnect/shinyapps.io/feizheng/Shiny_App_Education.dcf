@@ -5,9 +5,9 @@ account: feizheng
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 739951
-bundleId: 1904628
+bundleId: 1904861
 url: https://feizheng.shinyapps.io/Shiny_App_Education/
-when: 1551301815.90221
+when: 1551308576.44157
 asMultiple: FALSE
 asStatic: FALSE
-ignoredFiles: gomap.js|README.md|Ex/server.R|Ex/ui.R|www/.DS_Store
+ignoredFiles: gomap.js|README.md|Ex/server.R|Ex/ui.R
