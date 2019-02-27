@@ -59,7 +59,7 @@ ui <- fluidPage(
       
       # map
       tabPanel(
-        strong("map"),
+        strong("Map"),
         div(
           class = "outer",
           includeCSS("map.css"),
