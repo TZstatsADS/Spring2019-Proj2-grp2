@@ -85,11 +85,11 @@ ui <- fluidPage(
             div(id = "conditionalPanel",
                 #fluidRow(
                 absolutePanel(id = "information", class = "panel panel-default", style="margin-top: 20px; margin-bottom: 0px;", fixed = TRUE,
-                              draggable = FALSE, top = 400, right=0, bottom = 0,
+                              draggable = FALSE, top =300, right=0, bottom = 0,
                               width = 400, height = "auto", cursor = "move",
-                              h2("Detailed Information"),
+                              # h2("Detailed Information"),
                               uiOutput("info1"),
-                              plotOutput("radar", width = "400px")
+                              plotlyOutput("radar", width = "350px")
 
                   )
                 #)
@@ -144,8 +144,27 @@ ui <- fluidPage(
 
       # about us
       tabPanel(
-        strong("About us")
+        strong("About us"),
         
+        div(
+          h1("What's Our Goal?"),
+          p("The project aims to help student better finding their dream colleges and universities.",
+            style="font-size:20px"),
+          h1("Who Are We?"),
+          p("We are a group of graduates students at Columbia University.",
+            style="font-size:20px"),
+          p("Fei Zheng, fz2277@columbia.edu",
+            style="font-size:20px"),
+          p("HyunBin Yoo, hy2506@columbia.edu",
+            style='font-size:20px'),
+          p("Tianchen Wang, tw2665@columbia.edu",
+            style='font-size:20px'),
+          p("Yiwei Li, yl3950@columbia.edu",
+            style='font-size:20px'),
+          h2("Special Thanks"),
+          p("We learned a lot of inspiration and ideas from students who enrolled in the Applied Data Science(GR5243).",
+            style="font-size:18px")
+        )
       )
     ) # end navbarPage
 ) # end ui
@@ -252,13 +271,140 @@ server <- function(input, output){
   })
   
   observeEvent(input$uni,{
-    if (input$uni == ""){
+    if (is.null(input$uni)){
       return()
     }
+    else if(input$uni == ""){
+      return()
+    }
+    
     one_school <- school.select() %>% filter(NAME == input$uni)
+    
+    # add radar plot
+    output$radar <- renderPlotly({
+      
+      data <- c((500 - one_school$RANK)/5, 
+                as.numeric(one_school$ADM_RATE),
+                one_school$TUITION/500,
+                one_school$MN_EARN_WNE_P6/1000,
+                as.numeric(one_school$SATVRMID)/8,
+                as.numeric(one_school$SATMTMID)/8,
+                as.numeric(one_school$SATWRMID)/8,
+                as.numeric(one_school$SAT_AVG)/16)
+      
+      flag <- c("Rank","Admission Rate", "Tuition", "Earning", "SAT",
+                "SAT English", "SAT Math", "SAT Writing" )
+      plot_ly(
+        type = "scatterpolar",
+        r = data,
+        theta = flag,
+        fill = "toself",
+        # area color
+        fillcolor = "#ff6699",
+        mode = "lines",
+        line = list(
+          color = "ff80aa"
+        )
+      ) %>%
+        layout(
+          polar = list(
+            # set graph background color
+            bgcolor = "#646868",
+            radialaxis = list(
+              visible = T,
+              showline = T,
+              range = c(0, 100),
+              linewidth = 3,
+              gridcolor = '#ffffff',
+              tickcolor = "#ffffff",
+              linecolor = "#ffffff"
+            )
+          ),
+          font = list(
+            family = 'Arial',
+            size = 13,
+            color = '#ffffff'
+          ),
+          showlegend = F,
+          # bg color
+          paper_bgcolor = "#303030"
+        )
+      
+    })
+    
+    output$info1 <- renderUI({
+        
+        head <- paste("<h2 style='font-family:Palatino' align=center>",
+                      as.character(one_school$NAME), "</h2>")
+        # college
+        rank <- paste("<p style='font-size:15px'>",
+                      as.character(one_school$RANK), "</p>")
+        
+        degree <- paste("<p style='font-size:15px'>",
+                        as.character(one_school$HIGHDEG), "</p>")
+        
+        locale <- paste("<p style='font-size:15px'>",
+                        as.character(one_school$LOCALE), "</p>")
+        
+        type <- paste("<p style='font-size:15px'>",
+                      as.character(one_school$TYPE), "</p>")
+        
+        international <- paste("<p style='font-size:15px'>",
+                               as.character(one_school$PERCENTAGEOFINTERNATIONAL), "</p>")
+        
+        undergrads <- paste("<p style='font-size:15px'>",
+                            as.character(one_school$NUMBEROFUNDERGRAD), "</p>")
+        
+        table <- paste(
+          '<table id = "customers">', "<tr>", 
+          "<th>", "<strong>  Ranking </strong>", "</th>",
+          "<th>", "<strong>  High Degree </strong>", "</th>",
+          "</tr>",
+          "<tr>",
+          "<td>", rank, "</td>",
+          "<td>", degree, "</td>",
+          "</tr>",
+          "<tr>",
+          "<th>", "<strong>  Type </strong>", "</th>",
+          "<th>", "<strong>  Locale </strong>", "</th>",
+          "</tr>",
+          "<tr>",
+          "<td>", type, "</td>",
+          "<td>", locale, "</td>",
+          "</tr>",
+          "<tr>",
+          "<th>", "<strong>  International </strong>", "</th>",
+          "<th>", "<strong>  Undergrads Number </strong>", "</th>",
+          "</tr>", 
+          "<tr>",
+          "<td>", international,"</td>",
+          "<td>", undergrads,"</td>",
+          "</tr>",
+          "</table>"
+        )
+        
+        HTML(paste(head, table))
+    })
+    
     leafletProxy("map") %>%
       clearMarkers() %>%
-      addMarkers(one_school$LONGITUDE, one_school$LATITUDE) %>% 
+      addMarkers(one_school$LONGITUDE, one_school$LATITUDE, popup = 
+                   paste0(
+                     "<b><a href='http://",
+                     as.character(one_school$INSTURL),
+                     "'>",
+                     as.character(one_school$NAME),
+                     "</a></b>",
+                     "<br/>",
+                     paste(
+                       as.character(one_school$CITY), 
+                       as.character(one_school$STABBR)
+                     ),
+                     '<br/>',
+                     as.character(one_school$ZIP)
+                   ),
+                 options = popupOptions(closeButton = TRUE)
+      ) %>% 
       clearPopups() %>%
       addPopups(
         one_school$LONGITUDE, one_school$LATITUDE, 
@@ -279,10 +425,15 @@ server <- function(input, output){
         options = popupOptions(closeButton = TRUE)
       ) %>%
       flyTo(one_school$LONGITUDE, one_school$LATITUDE, zoom = 8)
-    
+  
     shinyjs::show(id = "conditionalPanel")
   })
 
+  observeEvent(input$map_marker_click, {
+      
+    shinyjs::show(id = "conditionalPanel")
+  })
+  
   observeEvent(input$map_click, {
 
     shinyjs::hide(id = "conditionalPanel")
@@ -300,102 +451,9 @@ server <- function(input, output){
   })
   
   
-  # add radar plot
-  output$radar <- renderPlot({
-    if(is.null(input$uni)){
-      return()
-    }
-    else if(input$uni == ""){
-      return()
-    }
-    college <- school.select() %>%
-      filter(NAME == input$uni) %>%
-      as.data.frame()
-
-    df <- data.frame(as.numeric(college$ADM_RATE)*100,
-                     as.numeric(college$SATVRMID)/8,
-                     as.numeric(college$SATMTMID)/8,
-                     as.numeric(college$SATWRMID)/8,
-                     as.numeric(college$SAT_AVG)/16,
-                     (500 - college$RANK)/5,
-                     college$TUITION/500,
-                     college$MN_EARN_WNE_P6/900)
-
-    colnames(df) <- c("Admission Rate", "SAT English" , "SAT Math", "SAT Writing" ,"SAT",
-                      "Rank", "Tuition", "Earning")
-    df <- rbind(rep(100, 8), rep(0, 8), df)
-
-    radarchart(df , axistype=1 ,
-               #custom polygon
-               pcol=rgb(0.3,0.5,0.5,0.9) , pfcol=rgb(1,0.6,0.6,0.4) , plwd=3 ,
-               #custom the grid
-               cglcol="purple", cglty=1, axislabcol="purple", cglwd=0.6,
-               #custom labels
-               vlcex=0.8
-    )
-
-  })
   
-  output$info1 <- renderUI({
-    if(!is.null(input$uni)){
-      college <- school.select() %>% 
-        filter(NAME == input$uni) %>% 
-        as.data.frame()
-      
-      head <- h2(as.character(college$NAME),
-                 align = "center")
-      # college
-      rank <- paste("<p style='font-size:15px'>", 
-                    as.character(college$RANK), "</p >")
-      
-      degree <- paste("<p style='font-size:15px'>", 
-                      as.character(college$HIGHDEG), "</p >")
-      
-      locale <- paste("<p style='font-size:15px'>", 
-                      as.character(college$LOCALE), "</p >")
-      
-      type <- paste("<p style='font-size:15px'>", 
-                    as.character(college$TYPE), "</p >")
-      
-      international <- paste("<p style='font-size:15px'>", 
-                             as.character(college$PERCENTAGEOFINTERNATIONAL), "%", "</p >")
-      
-      undergrads <- paste("<p style='font-size:15px'>", 
-                          as.character(college$NUMBEROFUNDERGRAD), "</p >")
-      
-      table <- paste(
-        '<table id = "customers">', "<tr>", 
-        "<th>", "<strong>  Ranking </strong>", "</th>",
-        "<th>", "<strong>  High Degree </strong>", "</th>",
-        "</tr>",
-        "<tr>",
-        "<td>", rank, "</td>",
-        "<td>", degree, "</td>",
-        "</tr>",
-        "<tr>",
-        "<th>", "<strong>  Type </strong>", "</th>",
-        "<th>", "<strong>  Locale </strong>", "</th>",
-        "</tr>",
-        "<tr>",
-        "<td>", type, "</td>",
-        "<td>", locale, "</td>",
-        "</tr>",
-        "<tr>",
-        "<th>", "<strong>  International </strong>", "</th>",
-        "<th>", "<strong>  Undergrads Number </strong>", "</th>",
-        "</tr>", 
-        "<tr>",
-        "<td>", international,"</td>",
-        "<td>", undergrads,"</td>",
-        "</tr>",
-        "</table>"
-      )
-      
-      HTML(paste(head, table))
-    }
-  })
   
-  # outputOptions(output, "radar", suspendWhenHidden = FALSE)
+  
   
   ### comparison
   output$uni_choice <- renderUI({
