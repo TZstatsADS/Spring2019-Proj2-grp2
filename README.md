@@ -34,7 +34,7 @@ Shiny App link: [https://feizheng.shinyapps.io/Shiny_App_Education/](https://fei
 
 + Tianchen Wang cleans the data, finishes the *Safety* button, makes all the *popup information* and *basic information(including radar chart)* on the map tab, adjusts the appearance and writes tab *about us*.
 + Fei Zheng makes *Major*, *State* button and *University* button on the map tab, finishes the *Comparison* tab and adjusts the appearance.
-+ HyunBin Yoo makes *SAT* button and adjusts the appearance.
++ HyunBin Yoo makes *SAT* button and *Admission_Rate* (which ended up not being used) and adjusts the appearance.
 + Yiwei Li makes *Tuition* button, chooses the main themes and prepares the presentation.
 
 
